@@ -1,4 +1,4 @@
-# Pointer and lists
+# Pointer, Lists, Structures
 It is important to understand the relationship between pointers and lists. Pointers are variables that hold memory addresses, and they are frequently used to manipulate data structures such as lists.
 
 A list is a collection of elements stored in contiguous memory locations. Each element in the list contains a value and a pointer to the next element in the list. The first element in the list is called the head, and the last element is called the tail.
@@ -39,7 +39,7 @@ int array[10];
 int* p = &array[5];
 p-- // p -= 1; p = p - 1;
 ```
-#### Subtration between pointers
+### Subtration between pointers
 ```c++
 short sarray[10];
 int* ps1 = &sarray[3];
@@ -50,13 +50,14 @@ You could have expected a 8 since 8 would be the difference between the memory a
 However the subtraction between pointers return the value divided by the size of pointer.
 Such that the result is equal to the defined space between the two pointers.
 
-## The Name of the list is equal to the first pointer
+## Pointer and lists
 ```c++
 float f[5];
 if (f==&f[0]){
-  RUN();
+  //whatever code
 }
 ```
+
 ### Using pointers to traverse a list
 ```c++
 int main() {
@@ -68,6 +69,7 @@ int main() {
     cout << *p++ << endl;
 }
 ```
+
 ### Pointer pointing a list
 ```cpp
 int main() {
@@ -77,7 +79,7 @@ int main() {
   for (int i = 0; i < 5; i++) cout << array[i] <<endl;
 }
 ```
-The [] operand has a higher priority than the *operand.
+The [] operand has a higher priority than the * operand.
 Thus ```int * p[5]``` equals ```int* (p[5])``` which means a list of pointers.
 This could be expressed as the following
 ```cpp
@@ -88,6 +90,8 @@ int main() {
   for (int i = 0; i < 5; i++) cout << p[3][i] <<endl;
 }
 ```
+
+## Structures and lists
 ### Structures with lists
 ```cpp
 #include <iostream>
@@ -139,6 +143,62 @@ int main() {
 }
 ```
 > utilizing structures and lists increases accessability and create complex data structures.
-> We'll look later into data structures such as linked lists of structures or arrays of structures.
+We'll look later into data structures such as linked lists of structures or arrays of structures.
 
 ## Pointers and structures
+### Pointer at structure
+```cpp
+#include <iostream>
+
+using namespace std;
+
+struct Rect
+{
+  int x, y;
+  int width, height;
+};
+
+int main() {
+  Rect rc = {100, 100, 50, 50};
+  Rect* p = &rc; // initialize pointer p
+  (*p).x = 200;  // rc.x = 200;
+  p->y = 250;    // rc.y = 250;
+  cout << "rc = (" << rc.x << ", " << rc.y << ")" << endl;
+  cout << "(" << rc.width << ", " << rc.height << ")" << endl;
+  return 0;
+}
+```
+> In C++, p->x is a shorthand notation for (*p).x.
+Using the -> operator is a convenient way to access members of a structure through a pointer to that structure, without having to dereference the pointer explicitly.
+
+### Structure including a pointer
+```cpp
+#include <iostream>
+
+using namespace std;
+
+struct IHaveAPointer
+{
+int x, y;
+IHaveAPointer* previous;
+IHaveAPointer* after;
+};
+
+int main() {
+  IHaveAPointer ihap1 = {10, 10, nullptr, nullptr};
+  IHaveAPointer ihap2 = {20, 20, &ihap1, nullptr};
+  IHaveAPointer ihap3 = {30, 30, &ihap2, nullptr};
+  IHaveAPointer ihap4 = {40, 40, &ihap3, &ihap1};
+  ihap1.after = &ihap2;
+  ihap2.after = &ihap3;
+  ihap3.after = &ihap4;
+  ihap4.previous = &ihap3;
+  
+  IHaveAPointer* current = &ihap1;
+  for (int i = 0; i < 10; i++) {
+    cout << i+1 << "th cycle : " << current->x * current->y << endl;
+    current = current->after;  
+  }
+  return 0;
+}
+```
