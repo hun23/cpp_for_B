@@ -1,4 +1,4 @@
-# pointer and lists
+# Pointer and lists
 It is important to understand the relationship between pointers and lists. Pointers are variables that hold memory addresses, and they are frequently used to manipulate data structures such as lists.
 
 A list is a collection of elements stored in contiguous memory locations. Each element in the list contains a value and a pointer to the next element in the list. The first element in the list is called the head, and the last element is called the tail.
@@ -9,8 +9,8 @@ In addition, pointers can be used to create a dynamic list, where the size of th
 
 Overall, understanding the relationship between pointers and lists is essential for working with data structures and implementing efficient algorithms that manipulate them.
 
-## addition and subtraction of pointers
-### addition
+## Addition and subtraction of pointers
+### Addition
 Create a pointer pointing at the fifth index of arrays[10]
 ```
 int arrays[10];
@@ -23,7 +23,7 @@ p = &arrays[6];
 ```
 or
 ```
-p++; // "p += 1;", "p = p + 1;"
+p++; // p += 1; p = p + 1;
 ```
 Pointer addition is an operation that can be performed on a pointer to access memory locations that are located after the current memory location.
 
@@ -33,10 +33,21 @@ In the case of a pointer defined as int*, which is a pointer to an integer, the 
 
 Note that pointer arithmetic is only valid within the bounds of the memory allocated to the pointer. Attempting to access memory locations outside of the allocated memory can result in undefined behavior, such as a segmentation fault.
 
-### subtraction
+### Subtraction
 ```
 int array[10];
 int* p = &array[5];
-p--
+p-- // p -= 1; p = p - 1;
 ```
+#### Subtration between pointers
+```
+short sarray[10];
+int* ps1 = &sarray[3];
+int* ps2 = &sarray[7];
+cout << ps2-ps1 << endl; // 4
+```
+You could have expected a 8 since 8 would be the difference between the memory address.
+However the subtraction between pointers return the value divided by the size of pointer.
+Such that the result is equal to the defined space between the two pointers.
+
 

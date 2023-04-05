@@ -1,1 +1,1 @@
-# [POINTER AND LIST](/docs/pointer_and_list.md/)
+[POINTER AND LIST](/docs/pointer_and_list.md/)
