@@ -4,7 +4,7 @@ using namespace std;
 
 void josephus(int n, int k)
 {
-
+  
 }
 
 int main (void)
