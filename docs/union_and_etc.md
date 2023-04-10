@@ -259,4 +259,3 @@ from the syntax the following is true
 - *ppc == pc;
 - **ppc = c;
 
-
