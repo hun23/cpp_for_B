@@ -1,7 +1,7 @@
 # Euclidian Algorithm
 GCD : Greatest Commen Divisor
 put GCD(a,b) = G
-put a = N, b = M;
+put a = N, b = M
 while (true)
 {
   a = G\*A
@@ -15,4 +15,4 @@ while (true)
   a = b
   b = r
 }
-G = b;
+G = b
