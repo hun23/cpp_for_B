@@ -116,3 +116,147 @@ int main(int argc, char const *argv[])
 ```
 
 ### Reference and const
+Const object can be declared on references. *Const* prevents modification.
+```cpp
+#include <iostream>
+using namespace std;
+int main() {
+  char c = 'A';
+  const char & r = c;
+  r = 'B' //error
+  r = 'C' //success
+  return 0;
+}
+```
+Reference are made to alias variables, such that it can't directly reference a constant.  
+```cpp
+#include <iostream>
+using namespace std;
+int main() {
+  const int & rci = 100; // success
+  int& ri = 100; //error
+  return 0;
+}
+```
+However in the case above, in ```const int& rci``` a temporal constant is declared and referenced afterwards.
+Because ```int& ri``` is vulnerable to change, which leads to various problems, only const object constants are allowed to be declared as a constants' reference.
+
+```cpp 
+#include <iostream>
+using namespace std;
+int main() {
+  char c = 'A';
+  const int& rci = c; // success
+  int& ri = c; //error
+  return 0;
+}
+```
+Likewise the case for referencing const 100, only ```const int& rci = c``` is allowed in the syntax.
+
+### typedef
+typedef is used to create aliases for types.
+Most used for structures with very long names e.g. MyStructureHasVeryLongNameForIdentity.
+Used secondhand for articulating the definition of type.
+> "With just the int USER_ID_TYPE, it is difficult to know its contents. However, if we create an alias for USER_ID_TYPE, we could refactor it to be much more verbose ; 
+> ```typedef unsigned char* uc_ptr;``` 
+
+For future refactoring it also can be phrased as the following.
+```cpp
+typedef short ID_TYPE;
+
+ID_TYPE id1 = (ID_TYPE)0;
+ID_TYPE id2 = (ID_TYPE)0;
+```
+
+## Lists, structure, pointer; other features
+### Structure: Bit Fields
+If we use bit fields, We could refactor the structures' memory space to to our needs.
+e.g. member 'a' takes 3bits, member 'b' takes 4bits.
+```cpp
+struc Flags
+{
+  int a : 3;
+  int b : 4;
+  bool c : 1;
+}
+```
+Bit fields only allow int types, and ```struc Flags``` only take up 8bits == 1byte
+If we'd like to add unused bits in between;
+```cpp
+struc Flags
+{
+  int a : 3;
+  int b : 4;
+  int : 5;
+  bool c : 1;
+}
+```
+Bit fields can be used for bitwise operation. The following code is on 16-bit color.
+```cpp
+#include <iostream>
+#include <bitset>
+using namespace std;
+struct Pixel16
+{
+  unsigned int blue : 5;
+  unsigned int green : 6;
+  unsigned int red : 5;
+};
+union Convert16
+{
+  Pixel16 pixel;
+  unsigned short us;
+};
+int main() {
+  unsigned short color = 0x1234;
+  Convert16 convert;
+  convert.us = color;
+  cout << "color = " << bitset<16>(color) << "(" << color << ")" << endl;                              //color = 0001001000110100(4660)
+  cout << "red  = " << bitset<16>(convert.pixel.red) << "(" << convert.pixel.red << ")" << endl;       //red  = 0000000000000010(2)
+  cout << "green  = " << bitset<16>(convert.pixel.green) << "(" << convert.pixel.green << ")" << endl; //green  = 0000000000010001(17)
+  cout << "blue  = " << bitset<16>(convert.pixel.blue) << "(" << convert.pixel.blue << ")" << endl;    //blue  = 0000000000010100(20)
+  return 0;
+}
+```
+
+### Structure:Structure
+Defining structure in structure
+```cpp
+struct A
+{
+  int i;
+  float f;
+}
+
+struct B
+{
+  A a;
+  char c;
+}
+
+int main() {
+  B b;
+  b.a.f= 30.0f
+}
+```
+### Multidimensional arrays
+```int arr[10][5]``` is similar to ```int arr[50]```
+memory for arr[1][0] is allocated after the memory for arr[0][4].
+To initialize a 2d array it is normal to use a double for syntax.
+```cpp
+for (int i = 0; i < 10; ++i)
+  for (int j = 0; j < 5; ++j)
+    arr[i][j] = 10;
+```
+
+### Pointer pointing pointer
+```cpp
+char c = '1';
+char* pc = &c;
+char ** ppc = &pc;
+```
+from the syntax the following is true
+- *ppc == pc;
+- **ppc = c;
+
+
