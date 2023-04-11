@@ -1,4 +1,4 @@
-# Function
+# Function 1
 In C++, a function is a named block of code that performs a specific task. It is a reusable piece of code that can be called from other parts of a program. C++ functions can take arguments as inputs and can return values as outputs.
 
 Functions in C++ are declared using a function prototype, which specifies the function name, the type of the return value, and the types of any input arguments. The function body contains the actual code that performs the desired task.
@@ -259,3 +259,78 @@ There are few points remember
 1. Where the variables are listed, the size of array is not required.
 1. The changes made in the function called is conserved outside the scope.
 These functionalities stem from the fact that array types are actually pointers.
+
+#### Protecting array via const object
+```cpp
+void UsingArray(const char arr[])
+{
+  // print
+  cout << "In UsingArray() : " << arr << endl;
+  arr[12] = '12'; // error
+}
+```
+
+### Passing 2 dimensional array
+```cpp
+#include <iostream>
+using namespace std;
+void Using2DArray (int arr[][3]) ;
+
+int main()
+{
+  int array[5][3] = {
+    {1,2,3},
+    {4,5,6},
+    {7,8,9},
+    {10,11,12},
+    {13,14,15}
+  };
+  Using2DArray(array) ;
+  return 0;
+}
+
+void Using2DArray( int arr[][3])
+{
+  for (int i = 0; i < 5; i++)
+    for (int j = 0; j < 3; j++)
+      cout << "arr[" << i << "][" << j << "] : " << arr[i][j] << endl;
+}
+```
+When defining the type the first paranthesis has to be void ```arr[][3]```.
+This is because internally processed as pointers. Such that the type of pointer is a array of pointers.
+
+This logic also works for higher dimensions. e.g. ```void Using3DArray (int arr[][5][10])```
+
+### Passing Structures
+Because structures have a typesize defined by the user; copying the variable within a function scope can lead to various performance issues.
+As we have used pointers or references, it is convenient to pass structures using reference.
+```cpp
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+struct Point
+{
+  int x, y;
+};
+
+double Distance(const Point& p1, const Point& p2);
+
+int main()
+{
+  Point a = {0, 0};
+  Point b = {3, 4};
+  double distance_a_b = Distance(a, b);
+  cout << "Distance between (" << a.x << ", " << a.y << "), ";
+  cout << "(" << b.x << ", " << b.y << ") : " << distance_a_b << endl;
+  return 0;
+}
+
+double Distance(const Point& p1, const Point& p2)
+{
+  double distance;
+  distance = sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
+  return distance;
+}
+```
