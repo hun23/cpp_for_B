@@ -26,8 +26,13 @@ bool wellmatched(const string& formula)
 
 int main(void)
 {
-  string input_string;
-  cin >> input_string;
-  string result = (wellmatched(input_string))? "YES":"NO";
-  cout << result << endl;
+  int T;
+  cin >> T;
+  for (int tc = 1; tc <= T; ++tc)
+  {
+    string input_string;
+    cin >> input_string;
+    string result = (wellmatched(input_string))? "YES":"NO";
+    cout << result << endl;
+  }
 }
