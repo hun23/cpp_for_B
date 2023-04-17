@@ -16,3 +16,17 @@ double VariableReturnType(char c, double i);
 VariableReturnType('A', 100);
 VariableReturnType('A', 100.12);
 ```
+The computer calles the function with the closest type of parameter.
+
+### Not to do
+If only the return type is different, both signature would be identical thus making it impossible to interpret.
+```cpp
+int VariableReturnType(char c, int i);
+double VariableReturnType(char c, int i);
+```
+```cpp
+void VariableReturnType(int i);
+void VariableReturnType(int& i);
+```
+
+### Searching appropriate function
