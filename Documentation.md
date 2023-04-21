@@ -6,6 +6,7 @@
 2. [OTHER EXTRA TYPES](/docs/union_and_etc.md/)
 3. [FUNCTION 1 : PASSING](/docs/function_1.md/)
 4. [FUNCTION 2 : OVERLOADING](/docs/function_2.md/)
+5. [DYNAMIC MEMORY ALLOCATION](/docs/dynamic_memory_allocation.md/)
 
 # DATA TYPES
 1. TODO : add variables and etc.
