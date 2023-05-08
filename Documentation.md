@@ -7,6 +7,7 @@
 3. [FUNCTION 1](/docs/function_1.md/)
 4. [FUNCTION 2](/docs/function_2.md/)
 5. [DYNAMIC MEMORY ALLOCATION](/docs/dynamic_memory_allocation.md/)
+6. [STRING](/docs/string.md/)
 
 # DATA TYPES
 1. TODO : add variables and etc.
